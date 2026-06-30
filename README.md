@@ -70,6 +70,7 @@ This module follows semver. Consumers pin to a tag:
 
 | Tag    | Notes |
 |--------|-------|
+| v0.2.1 | Lower go directive to 1.21.0 (no language features above 1.21 used) |
 | v0.2.0 | Generated C headers; submodule support |
 | v0.1.0 | Initial release |
 
