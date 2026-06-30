@@ -1,6 +1,9 @@
 # planetopia-protocol
 
-Shared protocol definitions for the Planetopia mesh network.
+[![CI](https://github.com/superbrobenji/planetopia-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/superbrobenji/planetopia-protocol/actions/workflows/ci.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+Shared protocol definitions for the Planetopia mesh network. Defines the opcode and adapter-type constants consumed by all Planetopia services and firmware.
 
 Used by:
 - **motionSensorServer** (Go) — imports as a Go module
@@ -8,14 +11,16 @@ Used by:
 
 ## Packages
 
-- **`opcodes/`** — serial command opcode constants (Go)
-- **`adapter/`** — adapter type identifiers and helpers (Go)
-- **`c/`** — generated C headers for firmware; **do not edit directly**
-- **`cmd/gen-headers/`** — generator that writes `c/` from the Go constants
+| Package | Description |
+|---------|-------------|
+| `opcodes/` | Serial command opcode constants (Go) |
+| `adapter/` | Adapter type identifiers and helpers (Go) |
+| `c/` | Generated C headers for firmware — do not edit directly |
+| `cmd/gen-headers/` | Generator that writes `c/` from the Go constants |
 
 ## Usage
 
-### Go (server)
+### Go (motionSensorServer)
 
 ```go
 import (
@@ -27,7 +32,7 @@ payload[0] = opcodes.OpLEDSolid
 if adapter.IsOutput(node.AdapterType) { ... }
 ```
 
-### C (firmware — via git submodule at `main/lib/planetopia-protocol`)
+### C (Planetopia-nodes — via git submodule at `main/lib/planetopia-protocol`)
 
 ```c
 #include "lib/planetopia-protocol/c/opcodes.h"
@@ -42,45 +47,24 @@ Set up the submodule:
 git submodule update --init
 ```
 
-## Changing constants
+## Contributing
 
-1. Edit the Go source (`opcodes/opcodes.go` or `adapter/types.go`)
-2. Regenerate C headers:
-   ```sh
-   make generate
-   # or: go generate ./...
-   ```
-3. Commit Go source and regenerated `c/` files together
-4. Tag a new version and push
-
-The `c/` files carry a `// Code generated; DO NOT EDIT` banner and are
-derived entirely from the Go constants — they are never edited by hand.
-
-## CI verification
-
-```sh
-make check   # go generate ./... && git diff --exit-code c/
-```
-
-Fails if C headers are out of sync with the Go constants.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full protocol contribution workflow — adding opcodes or adapter types, regenerating C headers, and opening a PR.
 
 ## Versioning
 
-This module follows semver. Consumers pin to a tag:
+This module follows semver. Consumers pin to a tag.
 
-| Tag    | Notes |
-|--------|-------|
-| v0.2.1 | Lower go directive to 1.21.0 (no language features above 1.21 used) |
+| Tag | Notes |
+|-----|-------|
+| v0.2.1 | Lower go directive to 1.21.0 |
 | v0.2.0 | Generated C headers; submodule support |
 | v0.1.0 | Initial release |
 
-<!-- TODO: open-source hardening needed after Planetopia spec is fully implemented.
-     Items to address before making this repo public or accepting external contributions:
-     - CONTRIBUTING.md + code of conduct
-     - LICENSE file (choose OSS licence)
-     - Security policy (SECURITY.md, responsible disclosure contact)
-     - CI workflow (GitHub Actions: go test, make check, go vet)
-     - Branch protection on main
-     - Signed tags / release process
-     - Review whether opcode/type values should be stabilised before v1.0
--->
+## License
+
+Copyright (C) 2026 Planetopia Contributors
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+See [LICENSE](LICENSE) for the full terms.
