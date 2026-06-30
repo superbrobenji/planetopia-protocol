@@ -1,5 +1,7 @@
 // Package opcodes defines the shared opcode constants for the Planetopia mesh protocol.
-// All opcodes must match the corresponding C definitions in c/opcodes.h.
+// C headers in c/ are generated from these constants — run "go generate ./..." to regenerate.
+//
+//go:generate go run ../cmd/gen-headers/main.go
 package opcodes
 
 // Serial command opcodes — byte 0 of the data payload in MessageTypeSerialCmdBroadcast frames.
