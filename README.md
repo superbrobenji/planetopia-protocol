@@ -57,6 +57,7 @@ This module follows semver. Consumers pin to a tag.
 
 | Tag | Notes |
 |-----|-------|
+| v0.3.0 | Add health opcodes 0xB0/0xB1/0xB2 |
 | v0.2.1 | Lower go directive to 1.21.0 |
 | v0.2.0 | Generated C headers; submodule support |
 | v0.1.0 | Initial release |
