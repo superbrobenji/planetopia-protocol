@@ -33,16 +33,20 @@ func writeOpcodesHeader(path string) error {
 /* Planetopia mesh protocol opcode constants.
  * Byte 0 of the data payload in MessageTypeSerialCmdBroadcast frames. */
 
-/* Server → node: management */
+/* Node ↔ server: health reporting */
 `)
+	writeCDefByte(f, "OP_HEALTH_REQ", opcodes.OpHealthReq, "server→node: request health; payload: [B0]")
+	writeCDefByte(f, "OP_HEALTH_REPORT", opcodes.OpHealthReport, "node(serial)→server: [B1][1B type][6B mac][4B uptime_le]")
+	writeCDefByte(f, "OP_NODE_HEALTH", opcodes.OpNodeHealth, "node(non-serial)→server: [B2][1B type][6B mac][4B uptime_le]")
+	fmt.Fprint(f, "\n/* Server → node: management */\n")
 	writeCDefByte(f, "OP_NODE_ID_SET", opcodes.OpNodeIdSet, "assign logical node ID")
-	writeCDefByte(f, "OP_CONFIG_SET", opcodes.OpConfigSet, "set adapter type and config")
-	writeCDefByte(f, "OP_TX_POWER_SET", opcodes.OpTxPowerSet, "set TX power preset")
+	writeCDefByte(f, "OP_CONFIG_SET", opcodes.OpConfigSet, "set adapter type; payload: [C1][6B targetMac][1B adapterType]")
+	writeCDefByte(f, "OP_TX_POWER_SET", opcodes.OpTxPowerSet, "set TX power preset; payload: [C2][1B: 0=short 1=indoor 2=outdoor]")
 	fmt.Fprint(f, "\n/* Server → output node: LED/relay commands */\n")
-	writeCDefByte(f, "OP_LED_SOLID", opcodes.OpLEDSolid, "solid colour: [r,g,b] at bytes [1:4]")
+	writeCDefByte(f, "OP_LED_SOLID", opcodes.OpLEDSolid, "solid colour: [D0][r,g,b]")
 	writeCDefByte(f, "OP_LED_OFF", opcodes.OpLEDOff, "turn LED strip off")
-	writeCDefByte(f, "OP_LED_BLINK", opcodes.OpLEDBlink, "blink: [r,g,b,interval_hi,interval_lo] at [1:6]")
-	writeCDefByte(f, "OP_RELAY_SET", opcodes.OpRelaySet, "relay state: [0x00=off, 0x01=on] at byte [1]")
+	writeCDefByte(f, "OP_LED_BLINK", opcodes.OpLEDBlink, "blink: [D2][r,g,b,interval_hi,interval_lo]")
+	writeCDefByte(f, "OP_RELAY_SET", opcodes.OpRelaySet, "relay state: [D8][0x00=off, 0x01=on]")
 	fmt.Fprint(f, "\n/* Node → server: acknowledgement */\n")
 	writeCDefByte(f, "OP_COMMAND_ACK", opcodes.OpCommandAck, "acknowledge a received command")
 	return nil

@@ -23,3 +23,21 @@ func TestOpLEDSolid_Value(t *testing.T) {
 		t.Errorf("OpLEDSolid = 0x%02X, want 0xD0", opcodes.OpLEDSolid)
 	}
 }
+
+func TestOpHealthReq_Value(t *testing.T) {
+	if opcodes.OpHealthReq != 0xB0 {
+		t.Errorf("OpHealthReq = 0x%02X, want 0xB0", opcodes.OpHealthReq)
+	}
+}
+
+func TestOpHealthReport_Value(t *testing.T) {
+	if opcodes.OpHealthReport != 0xB1 {
+		t.Errorf("OpHealthReport = 0x%02X, want 0xB1", opcodes.OpHealthReport)
+	}
+}
+
+func TestOpNodeHealth_Value(t *testing.T) {
+	if opcodes.OpNodeHealth != 0xB2 {
+		t.Errorf("OpNodeHealth = 0x%02X, want 0xB2", opcodes.OpNodeHealth)
+	}
+}

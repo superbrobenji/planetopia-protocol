@@ -6,16 +6,21 @@
 /* Planetopia mesh protocol opcode constants.
  * Byte 0 of the data payload in MessageTypeSerialCmdBroadcast frames. */
 
+/* Node ↔ server: health reporting */
+#define OP_HEALTH_REQ        0xB0  /* server→node: request health; payload: [B0] */
+#define OP_HEALTH_REPORT     0xB1  /* node(serial)→server: [B1][1B type][6B mac][4B uptime_le] */
+#define OP_NODE_HEALTH       0xB2  /* node(non-serial)→server: [B2][1B type][6B mac][4B uptime_le] */
+
 /* Server → node: management */
 #define OP_NODE_ID_SET       0xC0  /* assign logical node ID */
-#define OP_CONFIG_SET        0xC1  /* set adapter type and config */
-#define OP_TX_POWER_SET      0xC2  /* set TX power preset */
+#define OP_CONFIG_SET        0xC1  /* set adapter type; payload: [C1][6B targetMac][1B adapterType] */
+#define OP_TX_POWER_SET      0xC2  /* set TX power preset; payload: [C2][1B: 0=short 1=indoor 2=outdoor] */
 
 /* Server → output node: LED/relay commands */
-#define OP_LED_SOLID         0xD0  /* solid colour: [r,g,b] at bytes [1:4] */
+#define OP_LED_SOLID         0xD0  /* solid colour: [D0][r,g,b] */
 #define OP_LED_OFF           0xD1  /* turn LED strip off */
-#define OP_LED_BLINK         0xD2  /* blink: [r,g,b,interval_hi,interval_lo] at [1:6] */
-#define OP_RELAY_SET         0xD8  /* relay state: [0x00=off, 0x01=on] at byte [1] */
+#define OP_LED_BLINK         0xD2  /* blink: [D2][r,g,b,interval_hi,interval_lo] */
+#define OP_RELAY_SET         0xD8  /* relay state: [D8][0x00=off, 0x01=on] */
 
 /* Node → server: acknowledgement */
 #define OP_COMMAND_ACK       0xE0  /* acknowledge a received command */
