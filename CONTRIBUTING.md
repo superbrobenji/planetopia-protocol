@@ -88,3 +88,13 @@ Update the versioning table in `README.md` with the new tag and a one-line descr
 3. Ensure `make check`, `go test ./...`, and `go vet ./...` all pass locally
 4. Open a PR against `main` and fill in the PR template
 5. All CI jobs (`go-test`, `header-sync`, CodeQL) must be green; 1 approving review required
+
+## Repository setup
+
+After the first merge to `main`, configure branch protection in GitHub settings (Settings → Branches → Add rule for `main`):
+
+- Require status checks to pass before merging
+  - Required checks: `Test` (go-test job), `Header sync` (header-sync job)
+- Require approvals: 1
+- Dismiss stale pull request approvals when new commits are pushed
+- Do not allow bypassing the above settings
