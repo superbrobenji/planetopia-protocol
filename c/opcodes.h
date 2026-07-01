@@ -3,7 +3,7 @@
 
 #pragma once
 
-/* Planetopia mesh protocol opcode constants.
+/* Lattice mesh protocol opcode constants.
  * Byte 0 of the data payload in MessageTypeSerialCmdBroadcast frames. */
 
 /* Node ↔ server: health reporting */

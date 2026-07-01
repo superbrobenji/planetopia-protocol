@@ -3,7 +3,7 @@ package opcodes_test
 import (
 	"testing"
 
-	"github.com/superbrobenji/planetopia-protocol/opcodes"
+	"github.com/superbrobenji/lattice-protocol/opcodes"
 )
 
 func TestOpNodeIdSet_Value(t *testing.T) {

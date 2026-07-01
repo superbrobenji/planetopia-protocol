@@ -5,7 +5,7 @@
 
 ## Goal
 
-Bring planetopia-protocol CI to the same security standard as the sibling repo `planetopia-nodes`. All changes are confined to `.github/workflows/`.
+Bring lattice-protocol CI to the same security standard as the sibling repo `lattice-nodes`. All changes are confined to `.github/workflows/`.
 
 ## Scope
 
@@ -66,7 +66,7 @@ All 5 unpinned actions replaced:
 | `github/codeql-action/autobuild` | `@v3` | `dd903d2e4f5405488e5ef1422510ee31c8b32357 # v3.36.2` |
 | `github/codeql-action/analyze` | `@v3` | `dd903d2e4f5405488e5ef1422510ee31c8b32357 # v3.36.2` |
 
-codeql-action SHAs sourced from planetopia-nodes `codeql.yml` (already verified at v3.36.2).
+codeql-action SHAs sourced from lattice-nodes `codeql.yml` (already verified at v3.36.2).
 
 ### `go-version-file`
 

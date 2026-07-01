@@ -3,7 +3,7 @@
 
 #pragma once
 
-/* Planetopia adapter type identifiers.
+/* Lattice adapter type identifiers.
  * Carried in health report frames and config set commands. */
 
 #define ADAPTER_TYPE_UNKNOWN     0  /* not yet configured */

@@ -1,13 +1,13 @@
-# planetopia-protocol
+# lattice-protocol
 
-[![CI](https://github.com/superbrobenji/planetopia-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/superbrobenji/planetopia-protocol/actions/workflows/ci.yml)
+[![CI](https://github.com/superbrobenji/lattice-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/superbrobenji/lattice-protocol/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Shared protocol definitions for the Planetopia mesh network. Defines the opcode and adapter-type constants consumed by all Planetopia services and firmware.
+Shared protocol definitions for the Lattice mesh network. Defines the opcode and adapter-type constants consumed by all Lattice services and firmware.
 
 Used by:
 - **motionSensorServer** (Go) — imports as a Go module
-- **Planetopia-nodes** (ESP32/C++) — includes via git submodule
+- **Lattice-nodes** (ESP32/C++) — includes via git submodule
 
 ## Packages
 
@@ -24,19 +24,19 @@ Used by:
 
 ```go
 import (
-    "github.com/superbrobenji/planetopia-protocol/opcodes"
-    "github.com/superbrobenji/planetopia-protocol/adapter"
+    "github.com/superbrobenji/lattice-protocol/opcodes"
+    "github.com/superbrobenji/lattice-protocol/adapter"
 )
 
 payload[0] = opcodes.OpLEDSolid
 if adapter.IsOutput(node.AdapterType) { ... }
 ```
 
-### C (Planetopia-nodes — via git submodule at `main/lib/planetopia-protocol`)
+### C (Lattice-nodes — via git submodule at `main/lib/lattice-protocol`)
 
 ```c
-#include "lib/planetopia-protocol/c/opcodes.h"
-#include "lib/planetopia-protocol/c/adapter_types.h"
+#include "lib/lattice-protocol/c/opcodes.h"
+#include "lib/lattice-protocol/c/adapter_types.h"
 
 payload[0] = OP_LED_SOLID;
 ```
@@ -64,7 +64,7 @@ This module follows semver. Consumers pin to a tag.
 
 ## License
 
-Copyright (C) 2026 Planetopia Contributors
+Copyright (C) 2026 Lattice Contributors
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

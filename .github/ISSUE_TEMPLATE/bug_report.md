@@ -23,5 +23,5 @@ assignees: ''
 ## Environment
 
 - Go version:
-- Consumer repo: motionSensorServer / Planetopia-nodes / other
+- Consumer repo: motionSensorServer / Lattice-nodes / other
 - Protocol version (tag):

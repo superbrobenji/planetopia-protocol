@@ -1,4 +1,4 @@
-// Package opcodes defines the shared opcode constants for the Planetopia mesh protocol.
+// Package opcodes defines the shared opcode constants for the Lattice mesh protocol.
 // C headers in c/ are generated from these constants — run "go generate ./..." to regenerate.
 //
 //go:generate go run ../cmd/gen-headers/main.go
