@@ -3,7 +3,7 @@ package adapter_test
 import (
 	"testing"
 
-	"github.com/superbrobenji/planetopia-protocol/adapter"
+	"github.com/superbrobenji/lattice-protocol/adapter"
 )
 
 func TestIsInput(t *testing.T) {

@@ -1,4 +1,4 @@
-// Package adapter defines the input/output adapter type constants for the Planetopia mesh.
+// Package adapter defines the input/output adapter type constants for the Lattice mesh.
 // Input adapters send events to the server (e.g. PIR motion sensor).
 // Output adapters receive commands from the server (e.g. LED strip, relay).
 // All constants must match the corresponding C definitions in c/adapter_types.h.

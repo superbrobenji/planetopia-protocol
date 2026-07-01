@@ -8,8 +8,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/superbrobenji/planetopia-protocol/adapter"
-	"github.com/superbrobenji/planetopia-protocol/opcodes"
+	"github.com/superbrobenji/lattice-protocol/adapter"
+	"github.com/superbrobenji/lattice-protocol/opcodes"
 )
 
 func main() {
@@ -30,7 +30,7 @@ func writeOpcodesHeader(path string) error {
 
 #pragma once
 
-/* Planetopia mesh protocol opcode constants.
+/* Lattice mesh protocol opcode constants.
  * Byte 0 of the data payload in MessageTypeSerialCmdBroadcast frames. */
 
 /* Node ↔ server: health reporting */
@@ -64,7 +64,7 @@ func writeAdapterTypesHeader(path string) error {
 
 #pragma once
 
-/* Planetopia adapter type identifiers.
+/* Lattice adapter type identifiers.
  * Carried in health report frames and config set commands. */
 
 `)
