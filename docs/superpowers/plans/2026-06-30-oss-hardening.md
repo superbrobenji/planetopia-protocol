@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Prepare `planetopia-protocol` for public open-source release across three independently-mergeable tracks.
+**Goal:** Prepare `lattice-protocol` for public open-source release across three independently-mergeable tracks.
 
 **Architecture:** Three sequential tracks (Legal → Community → CI+Docs), each merged as its own PR. Track A blocks public release; B and C build on top.
 
@@ -10,8 +10,8 @@
 
 ## Global Constraints
 
-- License: GPL v3. Copyright line: `Copyright (C) 2026 Planetopia Contributors`
-- Repo slug: `github.com/superbrobenji/planetopia-protocol`
+- License: GPL v3. Copyright line: `Copyright (C) 2026 Lattice Contributors`
+- Repo slug: `github.com/superbrobenji/lattice-protocol`
 - Go minimum: `1.21.0` (go.mod); use `go-version: '1.23'` in CI toolchain
 - All CI jobs must be green on first run
 - No external Go dependencies — keep go.mod clean
@@ -202,17 +202,17 @@ git commit -m "docs: add Contributor Covenant 2.1 code of conduct"
 - [ ] **Step 1: Create CONTRIBUTING.md**
 
 ```markdown
-# Contributing to planetopia-protocol
+# Contributing to lattice-protocol
 
 ## What lives here
 
-This repo contains shared protocol definitions for the Planetopia mesh network:
+This repo contains shared protocol definitions for the Lattice mesh network:
 
 - **`opcodes/opcodes.go`** — serial command opcode constants (Go)
 - **`adapter/types.go`** — adapter type identifiers and helpers (Go)
 - **`c/`** — C headers generated from the Go constants; never edit these by hand
 
-Changes here affect all consumers: `motionSensorServer` (imports as Go module) and `Planetopia-nodes` (includes as git submodule). Treat every change as a protocol change.
+Changes here affect all consumers: `motionSensorServer` (imports as Go module) and `Lattice-nodes` (includes as git submodule). Treat every change as a protocol change.
 
 ## Prerequisites
 
@@ -377,7 +377,7 @@ assignees: ''
 ## Environment
 
 - Go version:
-- Consumer repo: motionSensorServer / Planetopia-nodes / other
+- Consumer repo: motionSensorServer / Lattice-nodes / other
 - Protocol version (tag):
 ```
 
@@ -552,16 +552,16 @@ git commit -m "ci: add CodeQL static analysis for Go"
 Replace the entire file contents:
 
 ```markdown
-# planetopia-protocol
+# lattice-protocol
 
-[![CI](https://github.com/superbrobenji/planetopia-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/superbrobenji/planetopia-protocol/actions/workflows/ci.yml)
+[![CI](https://github.com/superbrobenji/lattice-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/superbrobenji/lattice-protocol/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Shared protocol definitions for the Planetopia mesh network. Defines the opcode and adapter-type constants consumed by all Planetopia services and firmware.
+Shared protocol definitions for the Lattice mesh network. Defines the opcode and adapter-type constants consumed by all Lattice services and firmware.
 
 Used by:
 - **motionSensorServer** (Go) — imports as a Go module
-- **Planetopia-nodes** (ESP32/C++) — includes via git submodule
+- **Lattice-nodes** (ESP32/C++) — includes via git submodule
 
 ## Packages
 
@@ -578,19 +578,19 @@ Used by:
 
 ```go
 import (
-    "github.com/superbrobenji/planetopia-protocol/opcodes"
-    "github.com/superbrobenji/planetopia-protocol/adapter"
+    "github.com/superbrobenji/lattice-protocol/opcodes"
+    "github.com/superbrobenji/lattice-protocol/adapter"
 )
 
 payload[0] = opcodes.OpLEDSolid
 if adapter.IsOutput(node.AdapterType) { ... }
 ```
 
-### C (Planetopia-nodes — via git submodule at `main/lib/planetopia-protocol`)
+### C (Lattice-nodes — via git submodule at `main/lib/lattice-protocol`)
 
 ```c
-#include "lib/planetopia-protocol/c/opcodes.h"
-#include "lib/planetopia-protocol/c/adapter_types.h"
+#include "lib/lattice-protocol/c/opcodes.h"
+#include "lib/lattice-protocol/c/adapter_types.h"
 
 payload[0] = OP_LED_SOLID;
 ```
@@ -617,7 +617,7 @@ This module follows semver. Consumers pin to a tag.
 
 ## License
 
-Copyright (C) 2026 Planetopia Contributors
+Copyright (C) 2026 Lattice Contributors
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -645,7 +645,7 @@ Open a PR titled `chore: OSS hardening — Track C (CI + docs)` targeting `main`
 
 - [ ] **Step 5: Configure branch protection (manual step in GitHub settings)**
 
-Navigate to: `https://github.com/superbrobenji/planetopia-protocol/settings/branches` → Add rule for `main`:
+Navigate to: `https://github.com/superbrobenji/lattice-protocol/settings/branches` → Add rule for `main`:
 
 - Require status checks to pass before merging
   - Add required checks: `Test`, `Header sync`

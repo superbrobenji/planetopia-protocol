@@ -1,8 +1,8 @@
-# Platform Rename: Planetopia → Lattice Implementation Plan
+# Platform Rename: Lattice → Lattice Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rename every occurrence of `planetopia`/`Planetopia`/`PLANETOPIA` across all 3 repos to `lattice`/`Lattice`/`LATTICE`, including repo names, Go module paths, C++ namespaces, C header guards, submodule paths, and strings.
+**Goal:** Rename every occurrence of `lattice`/`Lattice`/`LATTICE` across all 3 repos to `lattice`/`Lattice`/`LATTICE`, including repo names, Go module paths, C++ namespaces, C header guards, submodule paths, and strings.
 
 **Architecture:** Dependency-ordered — `lattice-protocol` renamed and merged first (both other repos depend on it), then `lattice-hub` and `lattice-nodes` in parallel. GitHub repo renames happen before any code changes to activate redirects.
 
@@ -12,9 +12,9 @@
 
 - GitHub username: `superbrobenji` — all module paths and submodule URLs use this prefix
 - `Lattice` — capitalized in prose/comments; `lattice` in code identifiers; `LATTICE` in C preprocessor macros
-- Zero occurrences of `planetopia`, `Planetopia`, or `PLANETOPIA` anywhere after completion
+- Zero occurrences of `lattice`, `Lattice`, or `LATTICE` anywhere after completion
 - macOS `sed`: always `sed -i ''` (BSD sed requires empty string after `-i`)
-- PR branch: `feat/rename-planetopia-to-lattice` in each repo
+- PR branch: `feat/rename-lattice-to-lattice` in each repo
 - No force pushes; no `--no-verify`
 - Internal Go package names (`mesh`, `adapter`, `eventStore`, etc.) are out of scope — not branded
 - React component names, UI copy, Kafka topic names, `.env` files are out of scope
@@ -31,20 +31,20 @@
 
   GitHub → https://github.com/superbrobenji/motionSensorServer → Settings → General → Repository name → `lattice-hub` → Rename repository
 
-- [ ] **Step 2: Rename planetopia-nodes → lattice-nodes**
+- [ ] **Step 2: Rename lattice-nodes → lattice-nodes**
 
-  GitHub → https://github.com/superbrobenji/planetopia-nodes → Settings → General → Repository name → `lattice-nodes` → Rename repository
+  GitHub → https://github.com/superbrobenji/lattice-nodes → Settings → General → Repository name → `lattice-nodes` → Rename repository
 
-- [ ] **Step 3: Rename planetopia-protocol → lattice-protocol**
+- [ ] **Step 3: Rename lattice-protocol → lattice-protocol**
 
-  GitHub → https://github.com/superbrobenji/planetopia-protocol → Settings → General → Repository name → `lattice-protocol` → Rename repository
+  GitHub → https://github.com/superbrobenji/lattice-protocol → Settings → General → Repository name → `lattice-protocol` → Rename repository
 
 - [ ] **Step 4: Verify GitHub redirects are live**
 
 ```bash
-curl -sI https://github.com/superbrobenji/planetopia-protocol | grep location
+curl -sI https://github.com/superbrobenji/lattice-protocol | grep location
 # Expected: location: https://github.com/superbrobenji/lattice-protocol
-curl -sI https://github.com/superbrobenji/planetopia-nodes | grep location
+curl -sI https://github.com/superbrobenji/lattice-nodes | grep location
 # Expected: location: https://github.com/superbrobenji/lattice-nodes
 curl -sI https://github.com/superbrobenji/motionSensorServer | grep location
 # Expected: location: https://github.com/superbrobenji/lattice-hub
@@ -66,37 +66,37 @@ curl -sI https://github.com/superbrobenji/motionSensorServer | grep location
 - [ ] **Step 1: Verify tests pass before any changes**
 
 ```bash
-cd /Users/benjamin.swanepoel/projects/personal/planetopia-protocol
+cd /Users/benjamin.swanepoel/projects/personal/lattice-protocol
 go test ./...
-# Expected: ok  github.com/superbrobenji/planetopia-protocol/...
+# Expected: ok  github.com/superbrobenji/lattice-protocol/...
 ```
 
 - [ ] **Step 2: Create feature branch**
 
 ```bash
-git checkout -b feat/rename-planetopia-to-lattice
+git checkout -b feat/rename-lattice-to-lattice
 ```
 
 - [ ] **Step 3: Update go.mod module declaration**
 
 ```bash
-sed -i '' 's|module github.com/superbrobenji/planetopia-protocol|module github.com/superbrobenji/lattice-protocol|g' go.mod
+sed -i '' 's|module github.com/superbrobenji/lattice-protocol|module github.com/superbrobenji/lattice-protocol|g' go.mod
 ```
 
-- [ ] **Step 4: Update all planetopia occurrences in Go source files**
+- [ ] **Step 4: Update all lattice occurrences in Go source files**
 
 ```bash
 find . -name "*.go" -not -path "./.git/*" -exec sed -i '' \
-  -e 's|github.com/superbrobenji/planetopia-protocol|github.com/superbrobenji/lattice-protocol|g' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's|github.com/superbrobenji/lattice-protocol|github.com/superbrobenji/lattice-protocol|g' \
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
-- [ ] **Step 5: Verify no planetopia refs remain in Go files**
+- [ ] **Step 5: Verify no lattice refs remain in Go files**
 
 ```bash
-grep -rn "planetopia\|Planetopia\|PLANETOPIA" --include="*.go" .
+grep -rn "lattice\|Lattice\|LATTICE" --include="*.go" .
 # Expected: no output
 ```
 
@@ -118,7 +118,7 @@ go test ./...
 ```bash
 git add go.mod go.sum
 git add opcodes/opcodes.go adapter/types.go cmd/gen-headers/main.go
-git commit -m "feat: rename Go module path and strings planetopia → lattice"
+git commit -m "feat: rename Go module path and strings lattice → lattice"
 ```
 
 ---
@@ -133,17 +133,17 @@ The `cmd/gen-headers` tool generates `c/opcodes.h` and `c/adapter_types.h`. Task
 
 **Prerequisite:** Task 2
 
-- [ ] **Step 1: Verify gen-headers outputs LATTICE_ guards (not PLANETOPIA_)**
+- [ ] **Step 1: Verify gen-headers outputs LATTICE_ guards (not LATTICE_)**
 
 ```bash
-grep -n "PLANETOPIA\|LATTICE" cmd/gen-headers/main.go
-# Expected: only LATTICE_ lines remain; no PLANETOPIA_
+grep -n "LATTICE\|LATTICE" cmd/gen-headers/main.go
+# Expected: only LATTICE_ lines remain; no LATTICE_
 ```
 
-  If any `PLANETOPIA_` remain (e.g. hardcoded template strings not caught by Task 2 sed):
+  If any `LATTICE_` remain (e.g. hardcoded template strings not caught by Task 2 sed):
 
 ```bash
-sed -i '' 's/PLANETOPIA_/LATTICE_/g' cmd/gen-headers/main.go
+sed -i '' 's/LATTICE_/LATTICE_/g' cmd/gen-headers/main.go
 ```
 
 - [ ] **Step 2: Regenerate C headers**
@@ -161,10 +161,10 @@ grep -E "ifndef|define|endif" c/adapter_types.h
 # Expected: lines containing LATTICE_ADAPTER_TYPES_H
 ```
 
-- [ ] **Step 4: Verify no planetopia refs in generated headers**
+- [ ] **Step 4: Verify no lattice refs in generated headers**
 
 ```bash
-grep -i "planetopia" c/opcodes.h c/adapter_types.h
+grep -i "lattice" c/opcodes.h c/adapter_types.h
 # Expected: no output
 ```
 
@@ -191,33 +191,33 @@ git commit -m "feat: regenerate C headers with LATTICE_ include guards"
 
 ```bash
 find .github -name "*.yml" -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
 - [ ] **Step 2: Update Makefile**
 
 ```bash
 sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' Makefile
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' Makefile
 ```
 
 - [ ] **Step 3: Update any markdown files**
 
 ```bash
 find . -name "*.md" -not -path "./.git/*" -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
-- [ ] **Step 4: Full repo scan — verify zero planetopia occurrences**
+- [ ] **Step 4: Full repo scan — verify zero lattice occurrences**
 
 ```bash
-grep -rin "planetopia" --exclude-dir=.git .
+grep -rin "lattice" --exclude-dir=.git .
 # Expected: no output
 ```
 
@@ -236,20 +236,20 @@ make check
 ```bash
 git add .github/ Makefile
 git add $(git ls-files --modified "*.md")
-git diff --cached --quiet || git commit -m "feat: update CI, Makefile, docs planetopia → lattice"
+git diff --cached --quiet || git commit -m "feat: update CI, Makefile, docs lattice → lattice"
 ```
 
 - [ ] **Step 7: Push and open PR**
 
 ```bash
-git push -u origin feat/rename-planetopia-to-lattice
+git push -u origin feat/rename-lattice-to-lattice
 gh pr create \
-  --title "feat: rename platform planetopia → lattice" \
+  --title "feat: rename platform lattice → lattice" \
   --body "$(cat <<'EOF'
-Renames all internal references from Planetopia to Lattice.
+Renames all internal references from Lattice to Lattice.
 
-- go.mod module path: github.com/superbrobenji/planetopia-protocol → lattice-protocol
-- C header guards: PLANETOPIA_* → LATTICE_*
+- go.mod module path: github.com/superbrobenji/lattice-protocol → lattice-protocol
+- C header guards: LATTICE_* → LATTICE_*
 - Regenerated c/opcodes.h and c/adapter_types.h via go generate
 - Updated CI workflows, Makefile, comments, copyright strings
 EOF
@@ -290,7 +290,7 @@ find . -name "go.mod" -not -path "./.git/*"
 - [ ] **Step 2: Create feature branch**
 
 ```bash
-git checkout -b feat/rename-planetopia-to-lattice
+git checkout -b feat/rename-lattice-to-lattice
 ```
 
 - [ ] **Step 3: Update all go.mod module declarations (motionServer → lattice-hub)**
@@ -304,7 +304,7 @@ find . -name "go.mod" -not -path "./.git/*" -exec sed -i '' \
 
 ```bash
 find . -name "go.mod" -not -path "./.git/*" -exec sed -i '' \
-  's|github.com/superbrobenji/planetopia-protocol|github.com/superbrobenji/lattice-protocol|g' {} +
+  's|github.com/superbrobenji/lattice-protocol|github.com/superbrobenji/lattice-protocol|g' {} +
 ```
 
 - [ ] **Step 5: Update all Go source imports and strings**
@@ -312,10 +312,10 @@ find . -name "go.mod" -not -path "./.git/*" -exec sed -i '' \
 ```bash
 find . -name "*.go" -not -path "./.git/*" -exec sed -i '' \
   -e 's|github.com/superbrobenji/motionServer|github.com/superbrobenji/lattice-hub|g' \
-  -e 's|github.com/superbrobenji/planetopia-protocol|github.com/superbrobenji/lattice-protocol|g' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's|github.com/superbrobenji/lattice-protocol|github.com/superbrobenji/lattice-protocol|g' \
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
 - [ ] **Step 6: Run go mod tidy in each Go module**
@@ -330,10 +330,10 @@ done
 
 Expected: downloads `github.com/superbrobenji/lattice-protocol`, updates go.sum.
 
-- [ ] **Step 7: Verify no old paths or planetopia refs remain in Go files**
+- [ ] **Step 7: Verify no old paths or lattice refs remain in Go files**
 
 ```bash
-grep -rn "superbrobenji/motionServer\|superbrobenji/planetopia-protocol\|[Pp]lanetopia\|PLANETOPIA" \
+grep -rn "superbrobenji/motionServer\|superbrobenji/lattice-protocol\|[Pp]lanetopia\|LATTICE" \
   --include="*.go" --exclude-dir=.git .
 # Expected: no output
 ```
@@ -354,29 +354,29 @@ done
 ```bash
 find . \( -name "docker-compose*.yml" -o -name "Dockerfile*" \) -not -path "./.git/*" \
   -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
 - [ ] **Step 10: Update CI workflows and markdown**
 
 ```bash
 find .github -name "*.yml" -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 
 find . -name "*.md" -not -path "./.git/*" -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
-- [ ] **Step 11: Full repo scan — verify zero planetopia occurrences**
+- [ ] **Step 11: Full repo scan — verify zero lattice occurrences**
 
 ```bash
-grep -rin "planetopia" --exclude-dir=.git --exclude-dir=node_modules .
+grep -rin "lattice" --exclude-dir=.git --exclude-dir=node_modules .
 # Expected: no output
 ```
 
@@ -384,15 +384,15 @@ grep -rin "planetopia" --exclude-dir=.git --exclude-dir=node_modules .
 
 ```bash
 git add -A
-git commit -m "feat: rename module paths and all planetopia refs → lattice"
-git push -u origin feat/rename-planetopia-to-lattice
+git commit -m "feat: rename module paths and all lattice refs → lattice"
+git push -u origin feat/rename-lattice-to-lattice
 gh pr create \
-  --title "feat: rename platform planetopia → lattice" \
+  --title "feat: rename platform lattice → lattice" \
   --body "$(cat <<'EOF'
-Renames all Planetopia references to Lattice in the hub service.
+Renames all Lattice references to Lattice in the hub service.
 
 - go.mod module path: motionServer → lattice-hub
-- Protocol dependency: planetopia-protocol → lattice-protocol
+- Protocol dependency: lattice-protocol → lattice-protocol
 - All internal Go import paths updated
 - go mod tidy run across all modules
 - Docker/compose service names updated
@@ -409,30 +409,30 @@ Run this in parallel with Task 5 (both can start after Task 4 is merged).
 
 **Files:**
 - Modify: `.gitmodules`
-- Rename: `main/lib/planetopia-protocol/` → `main/lib/lattice-protocol/`
+- Rename: `main/lib/lattice-protocol/` → `main/lib/lattice-protocol/`
 
 **Prerequisite:** Task 4 merged
 
 - [ ] **Step 1: Create feature branch**
 
 ```bash
-cd /Users/benjamin.swanepoel/projects/personal/planetopia-nodes
-git checkout -b feat/rename-planetopia-to-lattice
+cd /Users/benjamin.swanepoel/projects/personal/lattice-nodes
+git checkout -b feat/rename-lattice-to-lattice
 ```
 
 - [ ] **Step 2: Update .gitmodules path and URL**
 
 ```bash
 sed -i '' \
-  -e 's|path = main/lib/planetopia-protocol|path = main/lib/lattice-protocol|g' \
-  -e 's|url = .*planetopia-protocol.*|url = https://github.com/superbrobenji/lattice-protocol|g' \
+  -e 's|path = main/lib/lattice-protocol|path = main/lib/lattice-protocol|g' \
+  -e 's|url = .*lattice-protocol.*|url = https://github.com/superbrobenji/lattice-protocol|g' \
   .gitmodules
 ```
 
 - [ ] **Step 3: Rename the submodule directory**
 
 ```bash
-git mv main/lib/planetopia-protocol main/lib/lattice-protocol
+git mv main/lib/lattice-protocol main/lib/lattice-protocol
 ```
 
 - [ ] **Step 4: Sync git submodule config**
@@ -456,7 +456,7 @@ git submodule status
 
 ```bash
 git add .gitmodules main/lib/lattice-protocol
-git commit -m "feat: rename submodule planetopia-protocol → lattice-protocol"
+git commit -m "feat: rename submodule lattice-protocol → lattice-protocol"
 ```
 
 ---
@@ -475,21 +475,21 @@ git commit -m "feat: rename submodule planetopia-protocol → lattice-protocol"
 
 ```bash
 find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
-  -exec sed -i '' 's/namespace planetopia/namespace lattice/g' {} +
+  -exec sed -i '' 's/namespace lattice/namespace lattice/g' {} +
 ```
 
 - [ ] **Step 2: Rename all namespace-qualified references**
 
 ```bash
 find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
-  -exec sed -i '' 's/planetopia::/lattice::/g' {} +
+  -exec sed -i '' 's/lattice::/lattice::/g' {} +
 ```
 
 - [ ] **Step 3: Update using namespace directives**
 
 ```bash
 find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
-  -exec sed -i '' 's/using namespace planetopia/using namespace lattice/g' {} +
+  -exec sed -i '' 's/using namespace lattice/using namespace lattice/g' {} +
 ```
 
 - [ ] **Step 4: Update all C/C++ include guard macros**
@@ -497,15 +497,15 @@ find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
 ```bash
 find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
   -exec sed -i '' \
-  -e 's/PLANETOPIA_/LATTICE_/g' \
-  -e 's/_PLANETOPIA/_LATTICE/g' {} +
+  -e 's/LATTICE_/LATTICE_/g' \
+  -e 's/_LATTICE/_LATTICE/g' {} +
 ```
 
 - [ ] **Step 5: Update include paths referencing the submodule**
 
 ```bash
 find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
-  -exec sed -i '' 's|planetopia-protocol/|lattice-protocol/|g' {} +
+  -exec sed -i '' 's|lattice-protocol/|lattice-protocol/|g' {} +
 ```
 
 - [ ] **Step 6: Update all remaining string/comment occurrences**
@@ -513,14 +513,14 @@ find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
 ```bash
 find main tests \( -name "*.h" -o -name "*.cpp" -o -name "*.ino" \) \
   -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' {} +
 ```
 
-- [ ] **Step 7: Verify no planetopia refs remain in C++ source**
+- [ ] **Step 7: Verify no lattice refs remain in C++ source**
 
 ```bash
-grep -rn "planetopia\|Planetopia\|PLANETOPIA" --include="*.h" --include="*.cpp" --include="*.ino" main/ tests/
+grep -rn "lattice\|Lattice\|LATTICE" --include="*.h" --include="*.cpp" --include="*.ino" main/ tests/
 # Expected: no output
 ```
 
@@ -528,7 +528,7 @@ grep -rn "planetopia\|Planetopia\|PLANETOPIA" --include="*.h" --include="*.cpp" 
 
 ```bash
 git add main/ tests/
-git commit -m "feat: rename C++ namespace planetopia:: → lattice:: and update header guards"
+git commit -m "feat: rename C++ namespace lattice:: → lattice:: and update header guards"
 ```
 
 ---
@@ -547,23 +547,23 @@ git commit -m "feat: rename C++ namespace planetopia:: → lattice:: and update 
 
 ```bash
 find . \( -name "CMakeLists.txt" -o -name "*.cmake" \) -not -path "./.git/*" -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
 - [ ] **Step 2: Update CI workflows and markdown**
 
 ```bash
 find .github -name "*.yml" -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 
 find . -name "*.md" -not -path "./.git/*" -exec sed -i '' \
-  -e 's/Planetopia/Lattice/g' \
-  -e 's/planetopia/lattice/g' \
-  -e 's/PLANETOPIA/LATTICE/g' {} +
+  -e 's/Lattice/Lattice/g' \
+  -e 's/lattice/lattice/g' \
+  -e 's/LATTICE/LATTICE/g' {} +
 ```
 
 - [ ] **Step 3: Build and run tests**
@@ -575,10 +575,10 @@ cd tests/build && ctest --output-on-failure
 # Expected: all tests pass
 ```
 
-- [ ] **Step 4: Full repo scan — verify zero planetopia occurrences**
+- [ ] **Step 4: Full repo scan — verify zero lattice occurrences**
 
 ```bash
-grep -rin "planetopia" --exclude-dir=.git --exclude-dir=tests/build .
+grep -rin "lattice" --exclude-dir=.git --exclude-dir=tests/build .
 # Expected: no output
 ```
 
@@ -589,16 +589,16 @@ grep -rin "planetopia" --exclude-dir=.git --exclude-dir=tests/build .
 ```bash
 git add .github/ tests/CMakeLists.txt
 git add $(git ls-files --modified "*.md" "*.cmake")
-git diff --cached --quiet || git commit -m "feat: update build config and CI planetopia → lattice"
-git push -u origin feat/rename-planetopia-to-lattice
+git diff --cached --quiet || git commit -m "feat: update build config and CI lattice → lattice"
+git push -u origin feat/rename-lattice-to-lattice
 gh pr create \
-  --title "feat: rename platform planetopia → lattice" \
+  --title "feat: rename platform lattice → lattice" \
   --body "$(cat <<'EOF'
-Renames all Planetopia references to Lattice in the nodes firmware.
+Renames all Lattice references to Lattice in the nodes firmware.
 
-- C++ namespaces: planetopia:: → lattice::
-- Submodule: lib/planetopia-protocol → lib/lattice-protocol (URL updated)
-- C header guards: PLANETOPIA_* → LATTICE_*
+- C++ namespaces: lattice:: → lattice::
+- Submodule: lib/lattice-protocol → lib/lattice-protocol (URL updated)
+- C header guards: LATTICE_* → LATTICE_*
 - #include paths updated for renamed submodule
 - CMakeLists, CI workflows, docs updated
 - All tests pass

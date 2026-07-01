@@ -5,13 +5,13 @@
 
 ## Goal
 
-Prepare the `planetopia-protocol` repo for public open-source release.
+Prepare the `lattice-protocol` repo for public open-source release.
 
 ## Decisions Made
 
 | Decision | Choice | Reason |
 |----------|--------|--------|
-| License | GPL v3 | Copyleft — matches sibling repos (planetopia-nodes, motionSensorServer) |
+| License | GPL v3 | Copyleft — matches sibling repos (lattice-nodes, motionSensorServer) |
 | Track structure | 3 tracks, 3 PRs | Small repo; CI and Docs are coupled via CI badge in README |
 | CI header check | `make check` (existing) | Already implemented — just needs a CI wrapper |
 | dependency-review | Skip | No external Go dependencies |
@@ -24,7 +24,7 @@ Three tracks, executed in order. Each track = one independent PR.
 
 ### Track A — Legal & Security *(blocks public release)*
 
-1. **`LICENSE`** — GPL v3 full text. Copyright: `Copyright (C) 2026 Planetopia Contributors`
+1. **`LICENSE`** — GPL v3 full text. Copyright: `Copyright (C) 2026 Lattice Contributors`
 2. **`SECURITY.md`** — responsible disclosure policy:
    - Supported: latest `main` only
    - Report via GitHub Security Advisory (private) or maintainer email

@@ -1,14 +1,14 @@
-# Contributing to planetopia-protocol
+# Contributing to lattice-protocol
 
 ## What lives here
 
-This repo contains shared protocol definitions for the Planetopia mesh network:
+This repo contains shared protocol definitions for the Lattice mesh network:
 
 - **`opcodes/opcodes.go`** — serial command opcode constants (Go)
 - **`adapter/types.go`** — adapter type identifiers and helpers (Go)
 - **`c/`** — C headers generated from the Go constants; never edit these by hand
 
-Changes here affect all consumers: `motionSensorServer` (imports as Go module) and `Planetopia-nodes` (includes as git submodule). Treat every change as a protocol change.
+Changes here affect all consumers: `motionSensorServer` (imports as Go module) and `Lattice-nodes` (includes as git submodule). Treat every change as a protocol change.
 
 ## Prerequisites
 
